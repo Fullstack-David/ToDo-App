@@ -5,7 +5,7 @@ import ListItem from "./ListItem";
 
 
 
-export default function ShowCards({ items, setItems, isOpen, setIsOpen, activeItem, setActiveItem}) {
+export default function ShowCards({ items, setItems, isOpen, setIsOpen, activeItem, setActiveItem, itemContext, setItemContext}) {
 
   // const [headerTitle, setHeaderTitle] = useState("")
   return (
@@ -41,7 +41,9 @@ export default function ShowCards({ items, setItems, isOpen, setIsOpen, activeIt
       {/* denna ska visa min modal */}
       
       <Modal
-         activeItem={activeItem}
+        activeItem={activeItem}
+        itemContext={itemContext}
+        setItemContext={setItemContext}
         value={false}
         isOpen={isOpen}
         setIsOpen={setIsOpen} /> 
