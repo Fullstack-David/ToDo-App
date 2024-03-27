@@ -38,7 +38,7 @@ export default function ListItem({ items, setItems, setIsOpen, setActiveItem}) {
                     key={index}
                     onClick={() => handleListItemClick(item)}
                 >
-                    <p>{item.text}</p>
+                    <h4>{item.text}</h4>
                     {item.createdAt} 
                 </li>))}
             <input
