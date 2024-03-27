@@ -16,14 +16,15 @@ export default function Modal({activeItem, isOpen, setIsOpen}) {
       <div className="centered" onClick={(e) => e.stopPropagation()}>
           <div className="modal">
             <div className="modalHeader">
-            <h5 className="heading">Dialog</h5>
+            <h5 className="heading">Hi there!</h5>
             </div>
             <button className="closeBtn" onClick={handleCloseBtn} >
             <RiCloseLine />          
           </button>
           
             <div className="modalContent"> 
-            <h1>{activeItem}</h1>
+            <p>{activeItem.text}</p>
+              {activeItem.createdAt} 
             </div>           
           </div>
         </div>

@@ -1,7 +1,8 @@
 // DENNA KOMPONENTS ÄR BARA TILL MIN TODO-LISTA
 import { useState } from "react";
 import { BiPlusMedical } from "react-icons/bi";
-import {format} from "date-fns"
+import { format } from "date-fns"
+import { sv } from "date-fns/locale";
 
    
 export default function ListItem({ items, setItems, setIsOpen, setActiveItem}) {
@@ -11,10 +12,8 @@ export default function ListItem({ items, setItems, setIsOpen, setActiveItem}) {
    
     function handleAddNewItem(e) {
         const newItemObject = {
-
             text: newItem,                              
-            createdAt: format(new Date(), "MMMM dd, yyyy - H:mm")
-
+            createdAt: format(new Date(), "MMMM dd, yyyy - H:mm", { locale: sv })
         };
        
         if (newItem !== "") {
@@ -29,9 +28,6 @@ export default function ListItem({ items, setItems, setIsOpen, setActiveItem}) {
         setIsOpen(true); // Öppnar modalen när en li-element klickas
     }
    
-    // function handleSubmit(){
-    //     const dateTime = format(new Date(), "MMMM dd, yyyy - H:m");   
-    // }
 
     return (
         <ul>
@@ -43,7 +39,6 @@ export default function ListItem({ items, setItems, setIsOpen, setActiveItem}) {
                     onClick={() => handleListItemClick(item)}
                 >
                     <p>{item.text}</p>
-                    
                     {item.createdAt} 
                 </li>))}
             <input
