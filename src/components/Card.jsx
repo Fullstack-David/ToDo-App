@@ -1,8 +1,17 @@
 import "./Card.css"
 import ListItem from "./ListItem";
 
-export default function Card({ title, bgColor, color, items, setItems, isOpen, setIsOpen, activeItem, setActiveItem, headerTitle}) {
-  //console.log('setActiveItem i App:', setActiveItem);
+export default function Card({ 
+  title,
+  bgColor,
+  color,
+  items,
+  setItems,
+  isOpen,
+  setIsOpen,
+  activeItem,
+  setActiveItem, }) {
+  
   return (
     <div className="card">   
       <div className="card-content">

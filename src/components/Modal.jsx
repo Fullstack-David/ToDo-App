@@ -2,20 +2,14 @@ import { RiCloseLine } from "react-icons/ri";
 import "./Modal.css"
 
 
-export default function Modal({item, isOpen, setIsOpen, itemContext, itemText}) {
+export default function Modal({activeItem, isOpen, setIsOpen}) {
  if (!isOpen) return null;
-  
- 
- 
-  
+   
   function handleCloseBtn(e) {
     e.stopPropagation(); // Förhindrar event-bubbling
-    setIsOpen(false);
-    
+    setIsOpen(false);   
   }
-  // console.log('setActiveItem i App:', setActiveItem);
-    
-
+  
   return (
     
       <div className="darkBG" onClick={() => setIsOpen(false)}>
@@ -28,13 +22,8 @@ export default function Modal({item, isOpen, setIsOpen, itemContext, itemText}) 
             <RiCloseLine />          
           </button>
           
-            <div className="modalContent">
-            {/* {item} */}
-              {/* <h1>{item.text}</h1>
-              <p>{item.context}</p> */}
-     
-              <h1>Här ska min li-context visas!!!!{item}</h1>
-   
+            <div className="modalContent"> 
+            <h1>{activeItem}</h1>
             </div>           
           </div>
         </div>
