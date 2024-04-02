@@ -2,32 +2,30 @@ import { useState } from 'react'
 import { format } from "date-fns";
 import "./components/Card.css"
 import "./index.css"
-import NewPost from './components/NewPost';
 import ShowCards from './components/ShowCards';
+import Header from './components/Header';
+
+
+import { BrowserRouter as Router, Routes, Route, useNavigate , Link, useParams} from "react-router-dom";
 
 
 export default function App() {
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState(null)
+  const [activeItem, setActiveItem] = useState(null);
   
-
-
   return (
-    <>
-      <h1 className='div-container-header'>The Board App</h1>
-      <ShowCards         
+    
+    <div className='App'>
+      <Header title="The Board App" />
+         
+      <ShowCards
         items={items}
         setItems={setItems}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         activeItem={activeItem}
-        setActiveItem={setActiveItem}        
-      />
-    
-      
-    </>
+        setActiveItem={setActiveItem} />    
+    </div>   
   );
 }
-
-

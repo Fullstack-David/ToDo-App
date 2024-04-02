@@ -1,11 +1,13 @@
 import Card from "./Card"
-import Column from "./Column"
 import Modal from "./Modal";
+import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 
-
-
-export default function ShowCards({ items,
+export default function ShowCards({
+  titles = ["Todo", "Doing", "Done"],
+  title,
+  items,
   setItems,
   isOpen,
   setIsOpen,
@@ -13,49 +15,41 @@ export default function ShowCards({ items,
   setActiveItem,
   itemContext,
   setItemContext,
-  handleSubmit
+  handleSubmit,
+  handleDeleteItem,
 }) {
 
   
   return (
     <>
       <div className='div-container'>
-        <Card
-          title="Todo"
-          bgColor="#D3D3D3"
-          items={items}
-          setItems={setItems}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          activeItem={activeItem}
-          setActiveItem={setActiveItem}
-          handleSubmit={handleSubmit}
-          
-        />
-        <Column
-          title="Doing"
-          bgColor="#FCB711"
-          color="white"
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
-        <Column
-          title="Done"
-          bgColor="#00873D"
-          color="white"
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
-      
+
+      {titles.map((title, index) => (
+          <Card
+            key={index}
+            title={title}
+            items={items}
+            setItems={setItems}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            activeItem={activeItem}
+            setActiveItem={setActiveItem}
+            handleSubmit={handleSubmit}
+          />
+        ))}
       </div>
-      {/* denna ska visa min modal */}    
+      {/* denna ska visa min modal */}
       <Modal
+        items={items}
         activeItem={activeItem}
         itemContext={itemContext}
         setItemContext={setItemContext}
         value={false}
         isOpen={isOpen}
-        setIsOpen={setIsOpen} /> 
+        setIsOpen={setIsOpen}
+        handleDeleteItem={handleDeleteItem}
+        />
+      
 
     </>
   );

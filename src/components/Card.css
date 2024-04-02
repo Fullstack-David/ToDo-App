@@ -99,3 +99,11 @@
   font-weight: 400;
   padding: 10px;
 }
+
+.doing-card {
+  background-color: #fcb711;
+}
+
+.done-card {
+  background-color: #00873d;
+}

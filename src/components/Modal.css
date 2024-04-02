@@ -22,7 +22,6 @@
   width: 400px;
   height: 400px;
   background: white;
-  color: white;
   z-index: 10;
   border-radius: 16px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
@@ -47,9 +46,17 @@
 
 .modalContent {
   padding: 10px;
-  font-size: 14px;
+  font-size: 16px;
   color: #2c3e50;
-  text-align: center;
+  /* text-align: center; */
+}
+
+.modal-para {
+  margin: 10px 0;
+}
+
+.date-para {
+  font-weight: 400;
 }
 
 .modalActions {
@@ -89,35 +96,37 @@
   transform: translate(-4px, 4px);
 }
 
-.deleteBtn {
+/* .save-Btn {
   margin-top: 10px;
   cursor: pointer;
   font-weight: 500;
-  padding: 11px 28px;
+  padding: 11px 15px;
   border-radius: 12px;
-  font-size: 0.8rem;
+  font-size: 1rem;
   border: none;
   color: #fff;
-  background: #ff3e4e;
+  background: #4caf50;
   transition: all 0.25s ease;
-}
+  margin-left: 10px;
+} */
 
 .deleteBtn:hover {
   box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
   transform: translateY(-5px);
-  background: #ff3e4e;
+  /* background: #ff3e4e; */
+  background-color: #72d572;
 }
 
-.cancelBtn {
+.delete-Btn {
   margin-top: 10px;
   cursor: pointer;
   font-weight: 500;
-  padding: 11px 28px;
+  padding: 11px 15px;
   border-radius: 12px;
-  font-size: 0.8rem;
+  font-size: 1rem;
   border: none;
-  color: #2c3e50;
-  background: #fcfcfc;
+  color: white;
+  background: #d32f2f;
   transition: all 0.25s ease;
 }
 
@@ -125,4 +134,8 @@
   box-shadow: none;
   transform: none;
   background: whitesmoke;
+}
+
+.modal-Btn {
+  margin: 1rem;
 }
