@@ -5,74 +5,92 @@ import { format } from "date-fns"
 import { sv } from "date-fns/locale";
 
    
-export default function ListItem({ title, items, setItems, setIsOpen, setActiveItem}) {
+export default function ListItem({ title, items, setItems, setIsOpen, setActiveItem, handleDeleteItem, handleEdit}) {
         
     const [newItem, setNewItem] = useState("");
+    const [newDescription, setNewDescription] = useState("");
+    
  
     function handleAddNewItem() {
-        if (title === "Todo" && newItem !== "") {
-            
-            const newItemObject = {
-                text: newItem,                              
-                createdAt: format(new Date(), "MMMM dd, yyyy - H:mm", { locale: sv })
+        if (title === "Todo" && newItem !== "") {           
+            const newItemObject = {  
+                // skapar ett unik id med Math.random
+                id: Math.random().toString(),
+                cardId: 0,
+                text: newItem,
+                description: newDescription,
+                createdAt: format(new Date(), "MMMM dd, yyyy - H:mm",
+                    { locale: sv })
             };
             setItems([...items, newItemObject]);
         } 
         setNewItem("");
+        setNewDescription("");
     }
-    console.log("setitems: " + setItems)
     
-    function handleListItemClick(item) {
-        console.log(item)
-        setActiveItem(item)    
-        setIsOpen(true); // Öppnar modalen när en li-element klickas
+    
+    function handleListItemClick(item) { 
+            setActiveItem(item)    
+            setIsOpen(true); // Öppnar modalen när en li-element klickas
+            
     }
-   
-  // Delete-funktion för att ta bort en uppgift från listan
-  function handleDeleteItem(index) {
-    const updatedItems = [...items];
-    updatedItems.splice(index, 1); // Ta bort elementet från listan
-    setItems(updatedItems); // Uppdatera listan
-  }
-    
-
+       
     return (
         <ul>
-            {items.map((item, index) => (
+            {/* li ska bara läggas i min Todo */}
+            {items.map((item, id) => (
                 <li
                     className="li-list"
                     id="liItem"
-                    key={index}
+                    key={item.id}
                     onClick={() => handleListItemClick(item)}
                 >
-                    <p className="modal-para">{item.text}</p>
-                    <p className="modal-date" style={{ fontFamily: "Times" }}>{item.createdAt}</p>                    
-                    <BiTrash
+                    <h3 className="modal-para">{item.text}</h3>
+                    <p className="item-description">{item.description}</p> {/* Lägg till detta */}
+                    <p className="modal-date" style={{ fontFamily: "Times" }}>{item.createdAt}</p>
+
+                    {/* <BiTrash
                         className="delete-icon"
-                        onClick={() => handleDeleteItem(index)}
-                    />          
+                        style={{ cursor: "pointer" }}
+                        onClick={handleDeleteItem}
+                    /> */}
                 </li>))
             }
+
             {/* Conditional rendering för att visa element baserat på Title */}
             {title === "Todo" && (
-                <>
+                <div className="input-group">
+                    
                     <input
-                        type="text"
-                        value={newItem}
-                        onChange={(e) => setNewItem(e.target.value)}
+                        style={{border:"none"}}
+                            name="newItem"
+                            placeholder="Titel"
+                            type="text"
+                            value={newItem}
+                            onChange={(e) => setNewItem(e.target.value)}
                     />
-                    <div className="add-list">
-                        <BiPlusMedical style={{ marginLeft: "1rem" }} />
-                        <button onClick={handleAddNewItem}>
-                            Skapa ny uppgift
-                        </button>
-                    </div>
-                </>
-          
+                    <hr />
+                    <textarea
+                        style={{marginBottom:"10px", padding:"10px", border: "none", width:"100%", marginLeft:0}}
+                            cols={53}
+                            rows={5}
+                            name="newDescription"
+                            placeholder="Beskrivning..."
+                            type="text"
+                            value={newDescription}
+                            onChange={(e) => setNewDescription(e.target.value)}
+                        />
+                        <div className="add-list">
+                            <BiPlusMedical style={{color:"white", cursor: "pointer" }}
+                                onClick={handleAddNewItem}
+                            />
+                            <span style={{color:"white",margin:"0 auto", cursor:"pointer"}} onClick={handleAddNewItem}>Skapa ny uppgift</span>
+                        </div>
+                    
+                </div>
             )}
-           
         </ul>
-    );
-   
+    );   
 }
+
 

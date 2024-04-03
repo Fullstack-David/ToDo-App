@@ -1,6 +1,5 @@
-import "./Card.css"
 import ListItem from "./ListItem";
-import { useState } from "react";
+
 
 export default function Card({ 
   title,
@@ -11,7 +10,12 @@ export default function Card({
   setIsOpen,
   activeItem,
   setActiveItem,
-  handleDeleteItem
+  handleDeleteItem,
+  editTitle,
+  setEditTitle,
+  editBody,
+  setEditBody,
+  handleEdit
 }) {
   
   return (
@@ -30,6 +34,7 @@ export default function Card({
         </h2>
         
         <ListItem
+          key={items.id}
           title={title}
           items={items}
           setItems={setItems}
@@ -38,6 +43,11 @@ export default function Card({
           activeItem={activeItem}
           setActiveItem={setActiveItem}
           handleDeleteItem={handleDeleteItem}
+          editTitle={editTitle}
+          setEditTitle={setEditTitle}
+          editBody={editBody}
+          setEditBody={setEditBody}
+          handleEdit={handleEdit}
           
         />
      
