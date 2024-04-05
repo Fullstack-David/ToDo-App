@@ -1,3 +1,5 @@
+
+
 import Card from "./Card"
 import Modal from "./Modal";
 
@@ -15,31 +17,35 @@ export default function ShowCards({
   editTitle,
   setEditTitle,
   editBody,
-  setEditBody,  
+  setEditBody,
+  moveItem,
+  newItem,
+  setNewItem,
+  newDescription,
+  setNewDescription,
+  handleAddNewItem,
+  handleListItemClick
 }) {
     // Delete-funktion för att ta bort en uppgift från listan
     function handleDeleteItem(itemId) {
-      // const updatedItems = items.filter((item) => items[index] !== index);
       console.log("Försöker ta bort objekt med id:", itemId);
       const updatedItems = items.filter((item) => item.id !== itemId);
-      console.log(updatedItems); // Kolla den uppdaterade listan
-    setItems(updatedItems); // Uppdatera listan
+      console.log(updatedItems); // Kollar den uppdaterade listan
+      setItems(updatedItems); // Uppdatera listan
   
     }
-  // Exempel på en funktion som kan skickas ner till Modal som props för att hantera redigering
-  const handleEdit = (updatedItem) => {
-    // Uppdatera items listan med det nya värdet baserat på activeItem.id
-    const updatedItems = items.map((item) => {
-      if (item.id === activeItem.id) {
-        // return { ...item, ...updatedItem}; 
-        return { ...item, text: updatedItem.text, description: updatedItem.description };
+    const handleEdit = (updatedItem) => {
+      // Uppdatera items listan med det nya värdet baserat på activeItem.id
+      const updatedItems = items.map((item) => {
+        if (item.id === activeItem.id) {
+          return { ...item, text: updatedItem.text, description: updatedItem.description };
       }
-      return item;
-    });
+        return item;
+     });
 
-    setItems(updatedItems);
-    setIsOpen(false); // Stäng modalen
-  };
+      setItems(updatedItems);
+      setIsOpen(false); // Stänger modalen
+    }
 
 
   return (
@@ -47,10 +53,11 @@ export default function ShowCards({
     <>
       <div className='div-container'>
 
-        {titles.map((title, index) => (
+        {titles.map((title, index,) => (
           <Card
-            key={index}
+            key={title} //Om dina titlar alltid är unika och oföränderliga för varje kort, kan du överväga att använda title som nyckel istället.
             title={title}
+            cardId={index} // Lägger till ett unikt ID för varje Card baserat på dess titel
             items={items.filter(item => item.cardId === index)}
             setItems={setItems}
             isOpen={isOpen}
@@ -60,6 +67,14 @@ export default function ShowCards({
             handleSubmit={handleSubmit}
             handleEdit={handleEdit}
             handleDeleteItem={handleDeleteItem}
+            moveItem={moveItem}
+            newItem={newItem}
+            setNewItem={setNewItem}
+            handleAddNewItem={handleAddNewItem}
+            setNewDescription={setNewDescription}
+            newDescription={newDescription}
+            handleListItemClick={handleListItemClick}
+
           />
         ))}
       </div>
