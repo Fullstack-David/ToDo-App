@@ -3,9 +3,7 @@ import { BiPlusMedical, BiTrash } from "react-icons/bi";
 import DraggableListItem from "./DraggableListItem";
    
 export default function ListItem({ title, items,handleAddNewItem, newDescription, setNewDescription, newItem, setNewItem}) {
-          
-
-       
+             
     return (
         <ul>
             {/* li ska bara läggas i min Todo */}
@@ -45,8 +43,7 @@ export default function ListItem({ title, items,handleAddNewItem, newDescription
                                 onClick={handleAddNewItem}
                             />
                             <span style={{color:"white",margin:"0 auto", cursor:"pointer"}} onClick={handleAddNewItem}>Skapa ny uppgift</span>
-                        </div>
-                    
+                        </div>                    
                 </div>
             )}
         </ul>

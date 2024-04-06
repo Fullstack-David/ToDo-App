@@ -3,6 +3,9 @@ import { useDrop } from "react-dnd";
 import { useContext, useState } from "react";
 import { format } from "date-fns"
 import { sv } from "date-fns/locale";
+import { Link } from "react-router-dom";
+
+
 import DraggableListItem from "./DraggableListItem";
 import CardContext from "../context/CardContext";
 
@@ -36,7 +39,7 @@ export default function Card({
     if (newItem !== "") {
       const newItemObject = {
         id: Math.random().toString(),
-        cardId: 0, // eller annan logik för att bestämma cardId
+        cardId: 2, 
         text: newItem,
         description: newDescription,
         createdAt: format(new Date(), "yyyy-MM-dd HH:mm:ss", { locale: sv })
@@ -46,17 +49,19 @@ export default function Card({
       setNewDescription("");
     }
   }
-  
 
   return (
     <div ref={dropRef} className={`card ${title.toLowerCase()}-card`}>
       <div className="card-content">
-        <h2 style={{
-          backgroundColor: title === "Todo" ? "#D3D3D3" : title === "Doing" ? "#fcb711" : "#00873D",
-          color: title === "Todo" ? "black" : "white"
-        }}>
-          {title}
-        </h2>
+
+        <Link to={`/${title}`}>
+          <h2 style={{
+            backgroundColor: title === "Todo" ? "#D3D3D3" : title === "Doing" ? "#fcb711" : "#00873D",
+            color: title === "Todo" ? "black" : "white"
+          }}>
+            {title}
+          </h2>
+        </Link>
 
         {title === "Todo" && (
           <div className="input-group">
