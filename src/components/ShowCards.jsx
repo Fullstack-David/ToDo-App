@@ -24,7 +24,10 @@ export default function ShowCards({
   newDescription,
   setNewDescription,
   handleAddNewItem,
-  handleListItemClick
+  handleListItemClick,
+  handleDrop,
+  cards,
+   setCards
 }) {
     // Delete-funktion för att ta bort en uppgift från listan
     function handleDeleteItem(itemId) {
@@ -74,6 +77,9 @@ export default function ShowCards({
             setNewDescription={setNewDescription}
             newDescription={newDescription}
             handleListItemClick={handleListItemClick}
+            handleDrop={handleDrop}
+            cards={cards}
+            setCards={setCards}
 
           />
         ))}

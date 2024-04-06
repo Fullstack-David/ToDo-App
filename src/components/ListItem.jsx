@@ -2,13 +2,9 @@
 import { BiPlusMedical, BiTrash } from "react-icons/bi";
 import DraggableListItem from "./DraggableListItem";
    
-export default function ListItem({ title, items,setIsOpen, setActiveItem, handleAddNewItem, newDescription, setNewDescription, newItem, setNewItem}) {
+export default function ListItem({ title, items,handleAddNewItem, newDescription, setNewDescription, newItem, setNewItem}) {
           
-    function handleListItemClick(item) { 
-            setActiveItem(item)    
-            setIsOpen(true); // Öppnar modalen när en li-element klickas
-            
-    }
+
        
     return (
         <ul>

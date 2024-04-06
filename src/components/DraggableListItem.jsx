@@ -3,13 +3,15 @@
 import { useDrag } from 'react-dnd';
 
 function DraggableListItem({ item, handleListItemClick }) {
+
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: 'item',
-    item: { id: item.id },
+    item: { id: item.id }, // Objektet du vill passa när detta dras
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
     }),
   }));
+  
 
   return (
     <li
