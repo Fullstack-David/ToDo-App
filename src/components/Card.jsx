@@ -1,75 +1,51 @@
 import { BiPlusMedical, BiTrash } from "react-icons/bi";
 import { useDrop } from "react-dnd";
+import { useContext, useState } from "react";
+import { format } from "date-fns"
+import { sv } from "date-fns/locale";
 import DraggableListItem from "./DraggableListItem";
-import { useEffect } from "react";
+import CardContext from "../context/CardContext";
 
 export default function Card({
-  cardId, // Lägg till detta prop för att få kolumnens unika identifierare
+  cardId, 
   title,
-  color,
   items,
-  newItem,
-  setNewItem,
-  handleAddNewItem,
-  newDescription,
-  setNewDescription,
-  handleListItemClick,
-  handleDrop
- 
 }) {
+  const [newDescription, setNewDescription] = useState("");
+  const [newItem, setNewItem] = useState("");
+
+  const {   
+    handleDrop,
+    setItems
+  } = useContext(CardContext);
 
 
-  // useEffect(() => {
-  //   console.log(cards);
-  // }, [cards]);
-
-  // console.log(cardId)
-
-  // Min översättningsfunktion
-  function translateCardId(cardId) {
-    const cardMapping = {
-      0: 'todo',
-      1: 'doing',
-      2: 'done'
-    };
-  
-    return cardMapping[cardId] || null; // Returnerar null om inget matchar
-  }
-  
-  // console.log("Current cardId:", cardId); // Denna bör vara numerisk
-  // const newCardKey = translateCardId(cardId); // Översätt till sträng
-  // console.log("Translated cardId:", newCardKey); // Kontrollera översättningen
   const [, dropRef] = useDrop(() => ({
-    accept: "item",
-    drop: (item, monitor) => {
-      // Använd `cardId` direkt här. Anta att `cardId` är 'todo', 'doing', eller 'done'.
-      console.log("Dropping item with ID:", item.id, "to card:", cardId);
-      handleDrop(item.id, cardId);
-    },
-    collect: monitor => ({
-      isOver: !!monitor.isOver(),
-    }),
-  }));
-  
+  accept: "item",
+  drop: (item, monitor) => {
+    console.log("Dropping item with ID:", item.id, "to card:", cardId);
+    handleDrop(item.id, cardId);
+  },
+  collect: monitor => ({
+    isOver: !!monitor.isOver(),
+  }),
+}));
 
-  // const [, dropRef] = useDrop(() => ({
-  //   accept: "item",
-  //   drop: (item, monitor) => {
-  //     const targetCardId = translateCardId(cardId); 
-  //     console.log("Dropping item with ID:", item.id, "to cardId:", cardId);
 
-  //     handleDrop(item.id, targetCardId); // Antag att `cardId` är 'todo', 'doing', eller 'done'
-  //   },
-  //   collect: (monitor) => ({
-  //     isOver: !!monitor.isOver(),
-  //   }),
-  // }));
-
-  // console.log(handleDrop)
-  // console.log(cards)
-  // console.log("Current cards structure:", cards);
-
- 
+  function handleAddNewItem() {
+    if (newItem !== "") {
+      const newItemObject = {
+        id: Math.random().toString(),
+        cardId: 0, // eller annan logik för att bestämma cardId
+        text: newItem,
+        description: newDescription,
+        createdAt: format(new Date(), "yyyy-MM-dd HH:mm:ss", { locale: sv })
+      };
+      setItems(prevItems => [...prevItems, newItemObject]);
+      setNewItem("");
+      setNewDescription("");
+    }
+  }
   
 
   return (
@@ -77,7 +53,7 @@ export default function Card({
       <div className="card-content">
         <h2 style={{
           backgroundColor: title === "Todo" ? "#D3D3D3" : title === "Doing" ? "#fcb711" : "#00873D",
-          color: title === "Todo" ? color : "white"
+          color: title === "Todo" ? "black" : "white"
         }}>
           {title}
         </h2>
@@ -119,7 +95,6 @@ export default function Card({
           <DraggableListItem
             key={item.id}
             item={item}
-            handleListItemClick={handleListItemClick}
           />
         ))}
       </div>

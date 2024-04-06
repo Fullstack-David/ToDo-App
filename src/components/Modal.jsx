@@ -1,30 +1,52 @@
 import { RiCloseLine } from "react-icons/ri";
 import { useState, useEffect } from "react";
+import { useContext } from "react";
+import CardContext from "../context/CardContext";
 
-export default function Modal({ activeItem, isOpen, setIsOpen, handleDeleteItem, newItem, handleEdit }) {
+export default function Modal() {
 
+  const {activeItem,isOpen, setIsOpen, items } = useContext(CardContext);
   const [editTitle, setEditTitle] = useState("");
   const [editBody, setEditBody] = useState("")
 
+
+
   useEffect(() => {
     if (activeItem) {
-      setEditTitle(activeItem.text); // Antag att text representerar titeln
-      setEditBody(activeItem.description); // Lägg till en description egenskap i ditt objekt om det inte finns
+      setEditTitle(activeItem.text); 
+      setEditBody(activeItem.description); 
     }
-  }, [activeItem]); // Uppdatera dessa värden när activeItem ändras
-
+  }, [activeItem]); 
  if (!isOpen) return null;
    
   function handleCloseBtn(e) {
-    e.stopPropagation(); // Förhindrar event-bubbling
+    e.stopPropagation(); 
     setIsOpen(false);   
   }
 
-  // Delete-funktion för att ta bort en uppgift från listan
-  function handleDelete() {
-    handleDeleteItem(activeItem.id); // Anropa handleDeleteItem med indexet på activeItem
-  }
 
+   // Delete-funktion för att ta bort en uppgift från listan
+   function handleDeleteItem(itemId) {
+    console.log("Försöker ta bort objekt med id:", itemId);
+    const updatedItems = items.filter((item) => item.id !== itemId);
+    console.log(updatedItems); // Kollar den uppdaterade listan
+    setItems(updatedItems); // Uppdatera listan
+
+   }
+  
+   const handleEdit = (updatedItem) => {
+    // Uppdatera items listan med det nya värdet baserat på activeItem.id
+    const updatedItems = items.map((item) => {
+      if (item.id === activeItem.id) {
+        return { ...item, text: updatedItem.text, description: updatedItem.description };
+    }
+      return item;
+   });
+
+    setItems(updatedItems);
+    setIsOpen(false); // Stänger modalen
+  }
+  
 
   return (
     <div className="darkBG" onClick={() => setIsOpen(false)}>
@@ -51,7 +73,7 @@ export default function Modal({ activeItem, isOpen, setIsOpen, handleDeleteItem,
             ></textarea>
           </div>
           <div className="modal-Btn">
-            <button className="delete-Btn" type="button" onClick={handleDelete}>Delete</button>
+            <button className="delete-Btn" type="button" onClick={() => handleDeleteItem(activeItem.id)}>Delete</button>
             {/* lägga till EDIT-FUNKTIONEN */}
             <button className="edit-Btn" type="button" onClick={() => handleEdit({
               id: activeItem.id,

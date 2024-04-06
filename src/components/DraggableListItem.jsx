@@ -2,7 +2,7 @@
 
 import { useDrag } from 'react-dnd';
 
-function DraggableListItem({ item, handleListItemClick }) {
+function DraggableListItem({ item }) {
 
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: 'item',
@@ -11,7 +11,12 @@ function DraggableListItem({ item, handleListItemClick }) {
       isDragging: !!monitor.isDragging(),
     }),
   }));
-  
+
+  function handleListItemClick(item) { 
+    setActiveItem(item)    
+    setIsOpen(true); // Öppnar modalen när en li-element klickas
+    
+  }
 
   return (
     <li
