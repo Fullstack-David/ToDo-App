@@ -1,27 +1,23 @@
 //Skapar en ny komponent för mina draggbara listelement:
 
-import { useDrag } from 'react-dnd';
+import CardContext from "../context/CardContext";
+import { useContext } from "react";
 
-function DraggableListItem({ item }) {
+function DraggableListItem({ item}) {
 
-  const [{ isDragging }, dragRef] = useDrag(() => ({
-    type: 'item',
-    item: { id: item.id }, // Objektet du vill passa när detta dras
-    collect: monitor => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }));
+  const { setActiveItem, setIsOpen } = useContext(CardContext); 
 
   function handleListItemClick(item) { 
     setActiveItem(item)    
     setIsOpen(true); // Öppnar modalen när en li-element klickas
-    
+    console.log(item)
   }
 
   return (
     <li
-      ref={dragRef}
-      style={{ opacity: isDragging ? 0.5 : 1 }}
+      draggable
+      onDragStart={(e) => {e.dataTransfer.setData("id", item.id)}}
+      // style={{ opacity: isDragging ? 0.5 : 1 }}
       className="li-list"
       // onClick={() => handleListItemClick(item)}
       onClick={() => {

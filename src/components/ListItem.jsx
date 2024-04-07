@@ -1,4 +1,3 @@
-// DENNA KOMPONENTS ÄR BARA TILL MIN TODO-LISTA
 import { BiPlusMedical, BiTrash } from "react-icons/bi";
 import DraggableListItem from "./DraggableListItem";
    

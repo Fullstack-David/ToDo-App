@@ -1,45 +1,22 @@
 import { BiPlusMedical, BiTrash } from "react-icons/bi";
-import { useDrop } from "react-dnd";
 import { useContext, useState } from "react";
 import { format } from "date-fns"
 import { sv } from "date-fns/locale";
 import { Link } from "react-router-dom";
-
-
 import DraggableListItem from "./DraggableListItem";
 import CardContext from "../context/CardContext";
 
-export default function Card({
-  cardId, 
-  title,
-  items,
-}) {
+export default function Card({cardId, title,cardItems, titles}) {
   const [newDescription, setNewDescription] = useState("");
   const [newItem, setNewItem] = useState("");
-
-  const {   
-    handleDrop,
-    setItems
-  } = useContext(CardContext);
-
-
-  const [, dropRef] = useDrop(() => ({
-  accept: "item",
-  drop: (item, monitor) => {
-    console.log("Dropping item with ID:", item.id, "to card:", cardId);
-    handleDrop(item.id, cardId);
-  },
-  collect: monitor => ({
-    isOver: !!monitor.isOver(),
-  }),
-}));
+  const { setItems, items} = useContext(CardContext);
 
 
   function handleAddNewItem() {
     if (newItem !== "") {
       const newItemObject = {
         id: Math.random().toString(),
-        cardId: 2, 
+        cardId: 0, 
         text: newItem,
         description: newDescription,
         createdAt: format(new Date(), "yyyy-MM-dd HH:mm:ss", { locale: sv })
@@ -50,10 +27,27 @@ export default function Card({
     }
   }
 
-  return (
-    <div ref={dropRef} className={`card ${title.toLowerCase()}-card`}>
-      <div className="card-content">
+  function handleDrop(e, title) {
+    e.preventDefault();
+    const id = e.dataTransfer.getData("id").toString();
+    const item = items.find(item => item.id === id);
+    const newColoumnId = titles.indexOf(title)
+    const updatedItem = { ...item, cardId: newColoumnId }
+    const updatedItems = items.map(task => { 
+      return task.id === updatedItem.id ? updatedItem : task;
+    })
+    setItems(updatedItems);
+  }
 
+  
+  return (
+    <div
+      className={`card ${title.toLowerCase()}-card`}
+      onDragOver={(e) => { e.preventDefault() }}
+      onDrop={(e) => {handleDrop(e, title)}}   
+    >
+    
+      <div className="card-content">
         <Link to={`/${title}`}>
           <h2 style={{
             backgroundColor: title === "Todo" ? "#D3D3D3" : title === "Doing" ? "#fcb711" : "#00873D",
@@ -96,10 +90,10 @@ export default function Card({
           </div>
         )}
 
-        {items.map(item => (
+        {cardItems.map(item => (
           <DraggableListItem
             key={item.id}
-            item={item}
+            item={item}           
           />
         ))}
       </div>

@@ -4,12 +4,9 @@ import { useContext } from "react";
 import CardContext from "../context/CardContext";
 
 export default function Modal() {
-
-  const {activeItem,isOpen, setIsOpen, items } = useContext(CardContext);
+  const {activeItem,isOpen, setIsOpen, items, setItems } = useContext(CardContext);
   const [editTitle, setEditTitle] = useState("");
   const [editBody, setEditBody] = useState("")
-
-
 
   useEffect(() => {
     if (activeItem) {
@@ -47,7 +44,6 @@ export default function Modal() {
     setIsOpen(false); // Stänger modalen
   }
   
-
   return (
     <div className="darkBG" onClick={() => setIsOpen(false)}>
       <div className="centered" onClick={(e) => e.stopPropagation()}>
