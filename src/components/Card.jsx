@@ -38,7 +38,6 @@ export default function Card({cardId, title,cardItems, titles}) {
     })
     setItems(updatedItems);
   }
-
   
   return (
     <div
@@ -48,15 +47,11 @@ export default function Card({cardId, title,cardItems, titles}) {
     >
     
       <div className="card-content">
-        <Link to={`/${title}`}>
-          
+        <Link to={`/${title}`}>       
           <h2 style={{
             backgroundColor: title === "Todo" ? "#D3D3D3" : title === "Doing" ? "#fcb711" : "#00873D",
             color: title === "Todo" ? "black" : "white"
-          }}>
-            {title}
-            </h2>
-            
+          }}>{title}</h2>       
         </Link>
 
         {title === "Todo" && (
@@ -79,8 +74,7 @@ export default function Card({cardId, title,cardItems, titles}) {
               type="text"
               value={newDescription}
               onChange={(e) => setNewDescription(e.target.value)}
-            />
-            
+            />           
             <div className="add-list">
               <BiPlusMedical style={{ color: "white", cursor: "pointer" }}
                 onClick={() => handleAddNewItem(cardId)} // Modifierad för att skicka cardId
@@ -93,17 +87,14 @@ export default function Card({cardId, title,cardItems, titles}) {
             </div>
           </div>
         )}
-
         {cardItems.map(item => (
           <DraggableListItem
             key={item.id}
             item={item}           
           />
         ))}
-      </div>
-      
-    </div>
-    
+      </div>     
+    </div> 
   );
 }
  

@@ -42,7 +42,7 @@ export default function ListItem({ title, items,handleAddNewItem, newDescription
                             <BiPlusMedical style={{color:"white", cursor: "pointer" }}
                                 onClick={handleAddNewItem}
                             />
-                            <span style={{color:"white",margin:"0 auto", cursor:"pointer"}} onClick={handleAddNewItem}>Skapa ny uppgift</span>
+                            <span style={{color:"white", margin:"0 auto", cursor:"pointer"}} onClick={handleAddNewItem}>Skapa ny uppgift</span>
                         </div>                    
                 </div>
             )}

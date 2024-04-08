@@ -1,6 +1,5 @@
 import { RiCloseLine } from "react-icons/ri";
-import { useState, useEffect } from "react";
-import { useContext } from "react";
+import {useContext, useEffect, useState   } from "react";
 import CardContext from "../context/CardContext";
 
 export default function Modal() {
@@ -21,13 +20,11 @@ export default function Modal() {
     setIsOpen(false);   
   }
 
-
    // Delete-funktion för att ta bort en uppgift från listan
    function handleDeleteItem(itemId) {
     const updatedItems = items.filter((item) => item.id !== itemId);
     setItems(updatedItems); // Uppdatera listan
     setIsOpen(false); // Stänger modalen
-
    }
   
    const handleEdit = (updatedItem) => {
