@@ -24,10 +24,9 @@ export default function Modal() {
 
    // Delete-funktion för att ta bort en uppgift från listan
    function handleDeleteItem(itemId) {
-    console.log("Försöker ta bort objekt med id:", itemId);
     const updatedItems = items.filter((item) => item.id !== itemId);
-    console.log(updatedItems); // Kollar den uppdaterade listan
     setItems(updatedItems); // Uppdatera listan
+    setIsOpen(false); // Stänger modalen
 
    }
   
@@ -56,6 +55,7 @@ export default function Modal() {
               className="titleInput"
               placeholder="Title"
               type="text"
+              autoComplete="off"
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
             />

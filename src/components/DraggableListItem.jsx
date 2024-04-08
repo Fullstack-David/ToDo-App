@@ -17,9 +17,7 @@ function DraggableListItem({ item}) {
     <li
       draggable
       onDragStart={(e) => {e.dataTransfer.setData("id", item.id)}}
-      // style={{ opacity: isDragging ? 0.5 : 1 }}
       className="li-list"
-      // onClick={() => handleListItemClick(item)}
       onClick={() => {
         if (typeof handleListItemClick === 'function') {
           handleListItemClick(item);

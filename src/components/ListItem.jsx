@@ -22,6 +22,7 @@ export default function ListItem({ title, items,handleAddNewItem, newDescription
                         style={{border:"none", borderBottom:"1px solid"}}
                             name="newItem"
                             placeholder="Titel"
+                            autoComplete="off"
                             type="text"
                             value={newItem}
                             onChange={(e) => setNewItem(e.target.value)}
